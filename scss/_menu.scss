@@ -1,3 +1,5 @@
+$portrait-image: url("../dist/img/portrait.jpg");
+
 .menu-btn{
     position: absolute;
     z-index:3;
@@ -36,4 +38,108 @@
 
         }
     }
+}
+
+//Menu Overlay
+.menu{
+    position:fixed;
+    top:0;
+    width:100%;
+    visibility:hidden;
+
+    &.show {
+        visibility: visible;
+    }
+
+    &-branding, &-nav{
+        display:flex; //flex saa linkit näkymään jokainen yhdellä rivillä
+        flex-flow: column wrap;
+        align-items: center;
+        justify-content: center;
+        float: left;
+        width:50%;
+        height:100vh;
+        overflow:hidden;
+    }
+
+    &-nav{
+        margin:0;
+        padding:0;
+        background: rgba(darken($primary-color,5), 0.9);
+        transform: translate3d(0,-100%,0);
+        list-style: none;
+        @include easeOut;
+
+        &.show{
+            //slide in from top
+            transform: translate3d(0,0,0);
+        }
+
+        .nav-item{
+            //sijainti 600px on oikealla ruudun ulkopuolella
+            transform: translate3d(600px,0,0);
+            @include easeOut;
+
+            &.show{
+                //Slide in from right. 
+                //Sijainti 0,0,0 on keskellä.
+                transform:translate3d(0,0,0);
+            }
+            &.current>a{
+                color: $secondary-color;
+            }
+        }
+
+        .nav-link{
+            display: inline-block;
+            position: relative;
+            font-weight: 300;
+            font-size:25px;
+            text-transform: uppercase;
+            margin-top:3rem;
+            color:#fff;
+            text-decoration:none;
+            
+                
+            &:hover{
+                color:$secondary-color;
+                @include easeOut;
+            }
+            
+        }
+    }
+
+    //Delay each nav item slide by 0.1 s
+    @for $x from 1 through 4{
+        .nav-item:nth-child(#{$x}){
+            transition-delay: $x * 0.1s;
+        }
+    }
+
+    //Branding Side
+    &-branding {
+        background: rgba($primary-color,0.9);
+        transform: translate3d(0,100%,0);
+        @include easeOut;
+        
+        &.show{
+            //slide in from top
+            transform: translate3d(0,0,0);
+            
+        }
+        .portrait{
+            width: 250px;
+            height: 250px;
+            border-radius:50%;
+            background: $portrait-image;
+            border: solid $secondary-color 3px;
+            background-size:cover;
+            //opacity: 1;
+        }
+
+        
+    }
+
+
+
 }
