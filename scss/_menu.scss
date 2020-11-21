@@ -1,29 +1,28 @@
-$portrait-image: url("../dist/img/portrait.jpg");
+//Menu Button
 
 .menu-btn{
-    position: absolute;
+    position: absolute; //määritämme tarkan paikan
     z-index:3;
     right:35px;
     top:35px;
-    cursor:pointer;
+    cursor: pointer;
     @include easeOut;
 
     .btn-line{
         width:28px;
         height:3px;
         margin: 0 0 5px 0;
-        background: white;
+        background: set-text-color($primary-color);
         @include easeOut;
     }
 
-    // Rotate into X With menu lines
     &.close{
         transform: rotate(180deg);
 
         .btn-line{
             //Line 1 - Rotate
-            &:nth-child(1) {
-                transform: rotate(45deg) translate(5px,5px);
+            &:nth-child(1){
+                transform: rotate(45deg) translate(5px, 5px);
             }
 
             //Line 2 - Hide
@@ -33,113 +32,101 @@ $portrait-image: url("../dist/img/portrait.jpg");
 
             //Line 3 - Rotate
             &:nth-child(3){
-                transform:rotate(-45deg) translate(6px,-6px);
+                transform: rotate(-45deg) translate(6px,-6px);
             }
-
         }
     }
 }
 
-//Menu Overlay
+//Menu overlay
 .menu{
-    position:fixed;
+    position: fixed;
     top:0;
     width:100%;
+    opacity:0.97;
     visibility:hidden;
 
-    &.show {
+    &.show{
         visibility: visible;
     }
 
     &-branding, &-nav{
-        display:flex; //flex saa linkit näkymään jokainen yhdellä rivillä
-        flex-flow: column wrap;
+        display:flex;
+        flex-flow: column wrap; //näkyvät allekkain
         align-items: center;
         justify-content: center;
-        float: left;
-        width:50%;
-        height:100vh;
+        float:left;
+        width: 50%;
+        height: 100vh;
         overflow:hidden;
     }
 
     &-nav{
         margin:0;
         padding:0;
-        background: rgba(darken($primary-color,5), 0.9);
-        transform: translate3d(0,-100%,0);
-        list-style: none;
+        background: darken($primary-color, 5);
+        list-style:none;
+        transform:translate3d(0, -100%, 0);
         @include easeOut;
 
         &.show{
-            //slide in from top
             transform: translate3d(0,0,0);
         }
-
-        .nav-item{
-            //sijainti 600px on oikealla ruudun ulkopuolella
-            transform: translate3d(600px,0,0);
-            @include easeOut;
-
-            &.show{
-                //Slide in from right. 
-                //Sijainti 0,0,0 on keskellä.
-                transform:translate3d(0,0,0);
-            }
-            &.current>a{
-                color: $secondary-color;
-            }
-        }
-
-        .nav-link{
-            display: inline-block;
-            position: relative;
-            font-weight: 300;
-            font-size:25px;
-            text-transform: uppercase;
-            margin-top:3rem;
-            color:#fff;
-            text-decoration:none;
-            
-                
-            &:hover{
-                color:$secondary-color;
-                @include easeOut;
-            }
-            
-        }
     }
 
-    //Delay each nav item slide by 0.1 s
-    @for $x from 1 through 4{
-        .nav-item:nth-child(#{$x}){
-            transition-delay: $x * 0.1s;
-        }
-    }
-
-    //Branding Side
     &-branding {
-        background: rgba($primary-color,0.9);
-        transform: translate3d(0,100%,0);
+        background: $primary-color;
+        transform:translate3d(0, 100%, 0);
         @include easeOut;
-        
+
         &.show{
-            //slide in from top
             transform: translate3d(0,0,0);
-            
-        }
-        .portrait{
-            width: 250px;
-            height: 250px;
-            border-radius:50%;
-            background: $portrait-image;
-            border: solid $secondary-color 3px;
-            background-size:cover;
-            //opacity: 1;
         }
 
-        
+        .portrait{
+            width:250px;
+            height:250px;
+            background: url('../img/portrait.jpg');
+            border-radius:50%;
+            border: solid 3px $secondary-color;
+        }
     }
 
+    .nav-item{
+        transform: translate3d(600px, 0, 0);
+        @include easeOut;
 
+        &.show{
+            transform: translate3d(0,0,0);
+        }
 
+        &.current{
+            a{
+                color:$secondary-color;
+            }
+        }
+    }
+
+    .nav-link{
+        display: inline-block;
+        position: relative;
+        font-size:30px;
+        text-transform:uppercase;
+        padding: 1rem 0;
+        font-weight:300;
+        color: set-text-color($primary-color);
+        @include easeOut;
+
+        &:hover{
+            color:$secondary-color;
+        }
+    }
+}
+
+// Delay each nav item slide by 0.1s
+// nav-juttujen liukumiin 0.1s viive ed. nähden
+@for $x from 1 through 4 {
+    .nav-item:nth-child(#{$x}){
+        transition-delay: $x * 0.1s;
+    }
 }

@@ -1,12 +1,14 @@
 //Widescreens
 @include mediaXl{
-
+    
 }
-//Desktops and Laptops
+
+//Desktops and laptops
 @include mediaLg{
-
-//Tablets and Small Laptops
+    
 }
+
+// Tablets and Small Laptops
 @include mediaMd{
     main{
         align-items: center;
@@ -14,40 +16,52 @@
 
         .lg-heading{
             line-height:1;
-            margin-bottom:1 rem;
+            margin-bottom:1rem;
         }
     }
 
-    ul.menu-nav,div.menu-branding{
-        float:none;
+    ul.menu-nav, div.menu-branding{
+        float: none; //eivät kellu vasemmalla
         width:100%;
         min-height:0;
 
         &.show{
             transform: translate3d(0,0,0);
-        }
+        }    
     }
 
     .menu-nav{
-        height:75vh;
+        height: 75vh;
         transform: translate3d(-100%,0,0);
+        font-size:24px;
     }
 
     .menu-branding{
-        height:25vh;
-        transform: translate3d(100%,0,0);
-
+        height: 25vh;
+        transform: translate3d(100%,0,0);  
+        
         .portrait{
-            background:url('../dist/img/portrait_small.jpg');
-            width:150px;
+            background: url('../img/portrait_small.jpg');
             height:150px;
+            width:150px;
         }
     }
 
-//Smartphones
+    .about-info{
+        grid-template-areas:
+        'bioimage'
+        'bio'
+        'job1'
+        'job2'
+        'job3';
+
+        grid-template-columns: 1fr;
+    }
 }
+
+//Smartphones
 @include mediaSm{
-    main#home h1 {
+    main#home h1{
         margin-top:10vh;
     }
 }
